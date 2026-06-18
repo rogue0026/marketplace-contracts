@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+package marketplace.user;
+
+option go_package = "github.com/rogue0026/marketplace-contracts/gen/go/pb/user";
+
+import "google/protobuf/empty.proto";
+
+message CreateUserRequest {
+  string username = 1;
+  string password = 2;
+}
+
+message CreateUserResponse {
+  int32 user_id = 1;
+}
+
+message DeleteUserRequest {
+  int32 user_id = 1;
+}
+
+message GetUserRequest {
+  int32 user_id = 1;
+}
+
+message GetUserResponse {
+  string username = 1;
+  string password = 2;
+}
+
+service UserService {
+  rpc CreateUser(CreateUserRequest) returns (CreateUserResponse) {}
+  rpc DeleteUser(DeleteUserRequest) returns (google.protobuf.Empty) {}
+  rpc GetUser(GetUserRequest) returns (GetUserResponse) {}
+}
