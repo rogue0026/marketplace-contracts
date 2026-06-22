@@ -1,0 +1,75 @@
+syntax = "proto3";
+
+package marketplace.account;
+
+option go_package = "github.com/rogue0026/marketplace-contracts/gen/go/pb/account";
+
+import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
+
+message CreateAccountRequest {
+  string username = 1;
+  string password = 2;
+}
+
+message CreateAccountResponse {
+  uint64 account_id = 1;
+}
+
+message DeleteAccountRequest {
+  uint64 account_id = 1;
+}
+
+message AccountInfoRequest {
+  uint64 user_id = 1;
+}
+
+message AccountInfoResponse {
+  uint64 account_id = 1;
+  string username = 2;
+  string password_hash = 3;
+  google.protobuf.Timestamp created_at = 4;
+}
+
+message ToUpBalanceRequest {
+  uint64 account_id = 1;
+  uint64 amount = 2;
+}
+
+message ToUpBalanceResponse {
+  uint64 transaction_id = 1;
+}
+
+message ToDownBalanceRequest {
+  uint64 account_id = 1;
+  uint64 amount = 2;
+}
+
+message ToDownBalanceResponse {
+  uint64 transaction_id = 1;
+}
+
+message TransactionsHistoryRequest {
+  uint64 account_id = 1;
+}
+
+message Transaction {
+  uint64 transaction_id = 1;
+  uint64 wallet_id = 2;
+  string operation_type = 3;
+  uint64 amount = 4;
+  google.protobuf.Timestamp created_at = 5;
+}
+
+message TransactionHistoryResponse {
+  repeated Transaction transactions = 1;
+}
+
+service UserService {
+  rpc CreateAccount(CreateAccountRequest) returns (CreateAccountResponse) {}
+  rpc DeleteAccount(DeleteAccountRequest) returns (google.protobuf.Empty) {}
+  rpc AccountInfo(AccountInfoRequest) returns (AccountInfoResponse) {}
+  rpc ToUpBalance(ToUpBalanceRequest) returns (ToUpBalanceResponse) {}
+  rpc ToDownBalance(ToDownBalanceRequest) returns (ToDownBalanceResponse) {}
+  rpc TransactionsHistory(TransactionsHistoryRequest) returns (TransactionHistoryResponse) {}
+}

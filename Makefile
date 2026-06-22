@@ -1,4 +1,4 @@
-.PHONY: generate_user
-generate_user:
+.PHONY: generate_account
+generate_account:
 	protoc --go_out=./gen/go --go-grpc_out=./gen/go \
-	--go_opt=paths=source_relative --go-grpc_opt=paths=source_relative ./pb/user/user.proto
+	--go_opt=paths=source_relative --go-grpc_opt=paths=source_relative ./pb/account/account.proto
