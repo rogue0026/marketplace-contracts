@@ -23,6 +23,58 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+type AccountServiceErrorReason int32
+
+const (
+	AccountServiceErrorReason_REASON_UNKNOWN                AccountServiceErrorReason = 0
+	AccountServiceErrorReason_REASON_ACCOUNT_ALREADY_EXISTS AccountServiceErrorReason = 1
+	AccountServiceErrorReason_REASON_ACCOUNT_NOT_FOUND      AccountServiceErrorReason = 2
+	AccountServiceErrorReason_REASON_NOT_ENOUGH_MONEY       AccountServiceErrorReason = 3
+)
+
+// Enum value maps for AccountServiceErrorReason.
+var (
+	AccountServiceErrorReason_name = map[int32]string{
+		0: "REASON_UNKNOWN",
+		1: "REASON_ACCOUNT_ALREADY_EXISTS",
+		2: "REASON_ACCOUNT_NOT_FOUND",
+		3: "REASON_NOT_ENOUGH_MONEY",
+	}
+	AccountServiceErrorReason_value = map[string]int32{
+		"REASON_UNKNOWN":                0,
+		"REASON_ACCOUNT_ALREADY_EXISTS": 1,
+		"REASON_ACCOUNT_NOT_FOUND":      2,
+		"REASON_NOT_ENOUGH_MONEY":       3,
+	}
+)
+
+func (x AccountServiceErrorReason) Enum() *AccountServiceErrorReason {
+	p := new(AccountServiceErrorReason)
+	*p = x
+	return p
+}
+
+func (x AccountServiceErrorReason) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (AccountServiceErrorReason) Descriptor() protoreflect.EnumDescriptor {
+	return file_pb_account_account_proto_enumTypes[0].Descriptor()
+}
+
+func (AccountServiceErrorReason) Type() protoreflect.EnumType {
+	return &file_pb_account_account_proto_enumTypes[0]
+}
+
+func (x AccountServiceErrorReason) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Use AccountServiceErrorReason.Descriptor instead.
+func (AccountServiceErrorReason) EnumDescriptor() ([]byte, []int) {
+	return file_pb_account_account_proto_rawDescGZIP(), []int{0}
+}
+
 type CreateAccountRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Username      string                 `protobuf:"bytes,1,opt,name=username,proto3" json:"username,omitempty"`
@@ -677,7 +729,12 @@ const file_pb_account_account_proto_rawDesc = "" +
 	"\n" +
 	"created_at\x18\x05 \x01(\v2\x1a.google.protobuf.TimestampR\tcreatedAt\"b\n" +
 	"\x1aTransactionHistoryResponse\x12D\n" +
-	"\ftransactions\x18\x01 \x03(\v2 .marketplace.account.TransactionR\ftransactions2\xfa\x04\n" +
+	"\ftransactions\x18\x01 \x03(\v2 .marketplace.account.TransactionR\ftransactions*\x8d\x01\n" +
+	"\x19AccountServiceErrorReason\x12\x12\n" +
+	"\x0eREASON_UNKNOWN\x10\x00\x12!\n" +
+	"\x1dREASON_ACCOUNT_ALREADY_EXISTS\x10\x01\x12\x1c\n" +
+	"\x18REASON_ACCOUNT_NOT_FOUND\x10\x02\x12\x1b\n" +
+	"\x17REASON_NOT_ENOUGH_MONEY\x10\x032\xfa\x04\n" +
 	"\vUserService\x12h\n" +
 	"\rCreateAccount\x12).marketplace.account.CreateAccountRequest\x1a*.marketplace.account.CreateAccountResponse\"\x00\x12T\n" +
 	"\rDeleteAccount\x12).marketplace.account.DeleteAccountRequest\x1a\x16.google.protobuf.Empty\"\x00\x12b\n" +
@@ -698,39 +755,41 @@ func file_pb_account_account_proto_rawDescGZIP() []byte {
 	return file_pb_account_account_proto_rawDescData
 }
 
+var file_pb_account_account_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
 var file_pb_account_account_proto_msgTypes = make([]protoimpl.MessageInfo, 12)
 var file_pb_account_account_proto_goTypes = []any{
-	(*CreateAccountRequest)(nil),       // 0: marketplace.account.CreateAccountRequest
-	(*CreateAccountResponse)(nil),      // 1: marketplace.account.CreateAccountResponse
-	(*DeleteAccountRequest)(nil),       // 2: marketplace.account.DeleteAccountRequest
-	(*AccountInfoRequest)(nil),         // 3: marketplace.account.AccountInfoRequest
-	(*AccountInfoResponse)(nil),        // 4: marketplace.account.AccountInfoResponse
-	(*ToUpBalanceRequest)(nil),         // 5: marketplace.account.ToUpBalanceRequest
-	(*ToUpBalanceResponse)(nil),        // 6: marketplace.account.ToUpBalanceResponse
-	(*ToDownBalanceRequest)(nil),       // 7: marketplace.account.ToDownBalanceRequest
-	(*ToDownBalanceResponse)(nil),      // 8: marketplace.account.ToDownBalanceResponse
-	(*TransactionsHistoryRequest)(nil), // 9: marketplace.account.TransactionsHistoryRequest
-	(*Transaction)(nil),                // 10: marketplace.account.Transaction
-	(*TransactionHistoryResponse)(nil), // 11: marketplace.account.TransactionHistoryResponse
-	(*timestamppb.Timestamp)(nil),      // 12: google.protobuf.Timestamp
-	(*emptypb.Empty)(nil),              // 13: google.protobuf.Empty
+	(AccountServiceErrorReason)(0),     // 0: marketplace.account.AccountServiceErrorReason
+	(*CreateAccountRequest)(nil),       // 1: marketplace.account.CreateAccountRequest
+	(*CreateAccountResponse)(nil),      // 2: marketplace.account.CreateAccountResponse
+	(*DeleteAccountRequest)(nil),       // 3: marketplace.account.DeleteAccountRequest
+	(*AccountInfoRequest)(nil),         // 4: marketplace.account.AccountInfoRequest
+	(*AccountInfoResponse)(nil),        // 5: marketplace.account.AccountInfoResponse
+	(*ToUpBalanceRequest)(nil),         // 6: marketplace.account.ToUpBalanceRequest
+	(*ToUpBalanceResponse)(nil),        // 7: marketplace.account.ToUpBalanceResponse
+	(*ToDownBalanceRequest)(nil),       // 8: marketplace.account.ToDownBalanceRequest
+	(*ToDownBalanceResponse)(nil),      // 9: marketplace.account.ToDownBalanceResponse
+	(*TransactionsHistoryRequest)(nil), // 10: marketplace.account.TransactionsHistoryRequest
+	(*Transaction)(nil),                // 11: marketplace.account.Transaction
+	(*TransactionHistoryResponse)(nil), // 12: marketplace.account.TransactionHistoryResponse
+	(*timestamppb.Timestamp)(nil),      // 13: google.protobuf.Timestamp
+	(*emptypb.Empty)(nil),              // 14: google.protobuf.Empty
 }
 var file_pb_account_account_proto_depIdxs = []int32{
-	12, // 0: marketplace.account.AccountInfoResponse.created_at:type_name -> google.protobuf.Timestamp
-	12, // 1: marketplace.account.Transaction.created_at:type_name -> google.protobuf.Timestamp
-	10, // 2: marketplace.account.TransactionHistoryResponse.transactions:type_name -> marketplace.account.Transaction
-	0,  // 3: marketplace.account.UserService.CreateAccount:input_type -> marketplace.account.CreateAccountRequest
-	2,  // 4: marketplace.account.UserService.DeleteAccount:input_type -> marketplace.account.DeleteAccountRequest
-	3,  // 5: marketplace.account.UserService.AccountInfo:input_type -> marketplace.account.AccountInfoRequest
-	5,  // 6: marketplace.account.UserService.ToUpBalance:input_type -> marketplace.account.ToUpBalanceRequest
-	7,  // 7: marketplace.account.UserService.ToDownBalance:input_type -> marketplace.account.ToDownBalanceRequest
-	9,  // 8: marketplace.account.UserService.TransactionsHistory:input_type -> marketplace.account.TransactionsHistoryRequest
-	1,  // 9: marketplace.account.UserService.CreateAccount:output_type -> marketplace.account.CreateAccountResponse
-	13, // 10: marketplace.account.UserService.DeleteAccount:output_type -> google.protobuf.Empty
-	4,  // 11: marketplace.account.UserService.AccountInfo:output_type -> marketplace.account.AccountInfoResponse
-	6,  // 12: marketplace.account.UserService.ToUpBalance:output_type -> marketplace.account.ToUpBalanceResponse
-	8,  // 13: marketplace.account.UserService.ToDownBalance:output_type -> marketplace.account.ToDownBalanceResponse
-	11, // 14: marketplace.account.UserService.TransactionsHistory:output_type -> marketplace.account.TransactionHistoryResponse
+	13, // 0: marketplace.account.AccountInfoResponse.created_at:type_name -> google.protobuf.Timestamp
+	13, // 1: marketplace.account.Transaction.created_at:type_name -> google.protobuf.Timestamp
+	11, // 2: marketplace.account.TransactionHistoryResponse.transactions:type_name -> marketplace.account.Transaction
+	1,  // 3: marketplace.account.UserService.CreateAccount:input_type -> marketplace.account.CreateAccountRequest
+	3,  // 4: marketplace.account.UserService.DeleteAccount:input_type -> marketplace.account.DeleteAccountRequest
+	4,  // 5: marketplace.account.UserService.AccountInfo:input_type -> marketplace.account.AccountInfoRequest
+	6,  // 6: marketplace.account.UserService.ToUpBalance:input_type -> marketplace.account.ToUpBalanceRequest
+	8,  // 7: marketplace.account.UserService.ToDownBalance:input_type -> marketplace.account.ToDownBalanceRequest
+	10, // 8: marketplace.account.UserService.TransactionsHistory:input_type -> marketplace.account.TransactionsHistoryRequest
+	2,  // 9: marketplace.account.UserService.CreateAccount:output_type -> marketplace.account.CreateAccountResponse
+	14, // 10: marketplace.account.UserService.DeleteAccount:output_type -> google.protobuf.Empty
+	5,  // 11: marketplace.account.UserService.AccountInfo:output_type -> marketplace.account.AccountInfoResponse
+	7,  // 12: marketplace.account.UserService.ToUpBalance:output_type -> marketplace.account.ToUpBalanceResponse
+	9,  // 13: marketplace.account.UserService.ToDownBalance:output_type -> marketplace.account.ToDownBalanceResponse
+	12, // 14: marketplace.account.UserService.TransactionsHistory:output_type -> marketplace.account.TransactionHistoryResponse
 	9,  // [9:15] is the sub-list for method output_type
 	3,  // [3:9] is the sub-list for method input_type
 	3,  // [3:3] is the sub-list for extension type_name
@@ -748,13 +807,14 @@ func file_pb_account_account_proto_init() {
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_pb_account_account_proto_rawDesc), len(file_pb_account_account_proto_rawDesc)),
-			NumEnums:      0,
+			NumEnums:      1,
 			NumMessages:   12,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
 		GoTypes:           file_pb_account_account_proto_goTypes,
 		DependencyIndexes: file_pb_account_account_proto_depIdxs,
+		EnumInfos:         file_pb_account_account_proto_enumTypes,
 		MessageInfos:      file_pb_account_account_proto_msgTypes,
 	}.Build()
 	File_pb_account_account_proto = out.File

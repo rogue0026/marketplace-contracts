@@ -7,6 +7,13 @@ option go_package = "github.com/rogue0026/marketplace-contracts/gen/go/pb/accoun
 import "google/protobuf/empty.proto";
 import "google/protobuf/timestamp.proto";
 
+enum AccountServiceErrorReason {
+  REASON_UNKNOWN = 0;
+  REASON_ACCOUNT_ALREADY_EXISTS = 1;
+  REASON_ACCOUNT_NOT_FOUND = 2;
+  REASON_NOT_ENOUGH_MONEY = 3;
+}
+
 message CreateAccountRequest {
   string username = 1;
   string password = 2;
